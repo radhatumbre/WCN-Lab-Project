@@ -1,38 +1,173 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Search Example</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <nav class="navbar">
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo">TSEC Mart</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">Product List</a></li>
-                <li>
-                    <div class="search-container">
-                        <input type="text" id="search-input" placeholder="Enter your search keyword">
-                        <button id="search-button"><i class="material-icons">search</i></button>
-                    </div>
-                </li>
-                <li>
-                    <div class="login-container">
-                        <button id="login-btn"><h6>Login</h6></button>
-                    </div>
-                </li>
-            </ul>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>complete responsive grocery website design tutorial</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a href="#" class="logo navbar-brand">
+          <i class="fas fa-shopping-basket"></i>Tsec Mart
+        </a>
+        <button
+          class="navbar-toggler primary"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#home"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#product">Product</a>
+            </li>
+          </ul>
+          <div class="cart-grid">
+            <button
+              type="button"
+              class="btn btn-primary cart-btn"
+              data-toggle="modal"
+              data-target="#cart"
+            >
+              Cart (<span class="total-count"></span>)
+            </button>
+          </div>
+          <form class="d-flex search-wrapper" role="search">
+            <input
+              id="filterInput"
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+          
         </div>
+      </div>
     </nav>
 
-    <div id="search-results"></div>
-    <div class="banner">
-    <img class="bannerimg" src="data:image/jpeg;base64,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" alt="banner image">
-</div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <section class="product" id="product">
+      <h1 class="heading"><span>products</span></h1>
+      <div class="product-grid"></div>
+    </section>
+    -->
+
+    <!-- Modal for Cart -->
+    <div
+      class="modal fade"
+      id="cartModal"
+      tabindex="-1"
+      aria-labelledby="cartModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="cartModalLabel">Your Cart</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="cart-items"></ul>
+            <div class="total-price">
+              Total Price: <span class="cart-total"></span>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary checkout-btn">
+              Checkout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="footer">
+      <div class="box-container">
+        <div class="box">
+          <h3>our location</h3>
+          <div class="links">
+            <a href="#">India</a>
+            <a href="#">USA</a>
+            <a href="#">Europe</a>
+            <a href="#">Korea</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>quick links</h3>
+          <div class="links">
+            <a href="#">Home</a>
+            <a href="#">Category</a>
+            <a href="#">Product</a>
+            <a href="#">Deal</a>
+            <a href="#">Contact</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>download app</h3>
+          <div class="links">
+            <a href="#">google play</a>
+            <a href="#">window xp</a>
+            <a href="#">app store</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
